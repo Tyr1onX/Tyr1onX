@@ -4,6 +4,10 @@ Communication Engineering undergraduate at Jilin University.
 
 Interested in **AI applications, backend development, and developer tools**.
 
+### GitHub Stats
+
+[![GitHub Stats](https://github-status-card-seven.vercel.app/api?username=Tyr1onX)](https://github.com/Tyr1onX)
+
 ### Tech Stack
 
 ![C++](https://img.shields.io/badge/C++-%2300599C.svg?style=flat-square&logo=cplusplus&logoColor=white)
