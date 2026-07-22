@@ -19,9 +19,15 @@
 - [Accounting Excel Tool](https://github.com/Tyr1onX/accounting-excel-tool) — 面向真实会计需求的 Excel 自动化工具
 - [Daily Journal](https://github.com/Tyr1onX/daily-journal-app) — 基于 Next.js 与 SQLite 的个人日报系统
 
-## 开源实践
+## 开源与协作
 
-- [EGC #943](https://github.com/Fmarzochi/EGC/pull/943) — 修复 WebSocket 断开后 `/ping` 轮询无法独立启动的问题
+我通过真实开源项目练习问题定位、代码修改、回归测试和 Pull Request 协作流程。
+
+- [Fmarzochi/EGC #943](https://github.com/Fmarzochi/EGC/pull/943) — 修复 WebSocket 断开后 `/ping` 轮询永久停止的问题，并补充回归测试
+- [Fmarzochi/EGC #950](https://github.com/Fmarzochi/EGC/pull/950) — 改进 replay 数据中文件路径缺失时的兼容性与容错处理
+- [Fmarzochi/EGC #957](https://github.com/Fmarzochi/EGC/pull/957) — 为 EGC 新增 Roo Code 原生安装目标，完成配置、实现与测试更新
+
+[查看我的全部 Pull Requests →](https://github.com/search?q=is%3Apr+author%3ATyr1onX&type=pullrequests)
 
 ## GitHub 数据
 
