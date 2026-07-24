@@ -19,7 +19,7 @@
 
 ## 开源与协作
 
-我通过真实开源项目练习问题定位、代码修改、回归测试和 Pull Request 协作流程。下方展示最近 8 个已合并 PR，由 GitHub Actions 每日自动更新。
+我通过真实开源项目练习问题定位、代码修改、回归测试和 Pull Request 协作流程。
 
 <!-- OPEN_SOURCE_CONTRIBUTIONS:START -->
 - [Fmarzochi/EGC #984](https://github.com/Fmarzochi/EGC/pull/984) — fix(docs): keep supported harness count in sync
@@ -27,9 +27,6 @@
 - [Fmarzochi/EGC #962](https://github.com/Fmarzochi/EGC/pull/962) — feat(install): add native Qwen Code install target
 - [Fmarzochi/EGC #957](https://github.com/Fmarzochi/EGC/pull/957) — feat(install): add native Roo Code install target
 - [Fmarzochi/EGC #953](https://github.com/Fmarzochi/EGC/pull/953) — fix(dashboard): avoid watcher stat-open race
-- [Fmarzochi/EGC #951](https://github.com/Fmarzochi/EGC/pull/951) — fix(dashboard): cap WebSocket reconnect attempts
-- [Fmarzochi/EGC #950](https://github.com/Fmarzochi/EGC/pull/950) — fix(dashboard): preserve replay file paths from detail
-- [Fmarzochi/EGC #943](https://github.com/Fmarzochi/EGC/pull/943) — fix(dashboard): keep ping polling alive while WebSocket is down
 <!-- OPEN_SOURCE_CONTRIBUTIONS:END -->
 
 [查看我的全部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX&type=pullrequests)
