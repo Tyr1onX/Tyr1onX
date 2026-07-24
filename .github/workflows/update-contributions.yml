@@ -1,0 +1,144 @@
+name: Update merged pull requests
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 0 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-profile-contributions
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Clone profile repository
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" repo
+
+      - name: Refresh contribution list
+        working-directory: repo
+        env:
+          PROFILE_LOGIN: Tyr1onX
+          CONTRIBUTION_LIMIT: "8"
+        run: |
+          set -euo pipefail
+          python3 <<'PY'
+          import json
+          import os
+          import re
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+
+          login = os.environ["PROFILE_LOGIN"]
+          limit = int(os.environ["CONTRIBUTION_LIMIT"])
+
+          params = urllib.parse.urlencode({
+              "q": f"author:{login} is:pr is:merged",
+              "sort": "updated",
+              "order": "desc",
+              "per_page": "100",
+          })
+          url = f"https://api.github.com/search/issues?{params}"
+          headers = {
+              "Accept": "application/vnd.github+json",
+              "User-Agent": "profile-readme-contribution-updater",
+          }
+
+          data = None
+          for attempt in range(3):
+              request = urllib.request.Request(url, headers=headers)
+              try:
+                  with urllib.request.urlopen(request, timeout=30) as response:
+                      data = json.load(response)
+                  break
+              except urllib.error.HTTPError as error:
+                  if attempt == 2 or error.code not in {403, 429, 502, 503}:
+                      details = error.read().decode("utf-8", errors="replace")
+                      raise RuntimeError(f"GitHub search failed ({error.code}): {details}") from error
+                  time.sleep(2 ** attempt)
+
+          if data is None:
+              raise RuntimeError("GitHub search returned no data")
+
+          pull_requests = []
+          for item in data.get("items", []):
+              pull_request = item.get("pull_request") or {}
+              merged_at = pull_request.get("merged_at") or item.get("closed_at")
+              repository_url = item.get("repository_url", "")
+              if not merged_at or "/repos/" not in repository_url:
+                  continue
+
+              repository = repository_url.split("/repos/", 1)[1]
+              title = " ".join(item.get("title", "").split())
+              title = (
+                  title.replace("\\", "\\\\")
+                  .replace("[", "\\[")
+                  .replace("]", "\\]")
+                  .replace("<", "&lt;")
+                  .replace(">", "&gt;")
+              )
+              pull_requests.append({
+                  "merged_at": merged_at,
+                  "repository": repository,
+                  "number": item["number"],
+                  "url": item["html_url"],
+                  "title": title,
+              })
+
+          pull_requests.sort(key=lambda item: item["merged_at"], reverse=True)
+          pull_requests = pull_requests[:limit]
+
+          lines = [
+              f"- [{item['repository']} #{item['number']}]({item['url']}) — {item['title']}"
+              for item in pull_requests
+          ]
+          if not lines:
+              lines = ["_暂无已合并 Pull Request。_"]
+
+          start = "<!-- OPEN_SOURCE_CONTRIBUTIONS:START -->"
+          end = "<!-- OPEN_SOURCE_CONTRIBUTIONS:END -->"
+          block = f"{start}\n" + "\n".join(lines) + f"\n{end}"
+
+          readme_path = "README.md"
+          with open(readme_path, "r", encoding="utf-8") as file:
+              readme = file.read()
+
+          pattern = re.compile(
+              rf"{re.escape(start)}.*?{re.escape(end)}",
+              flags=re.DOTALL,
+          )
+          if not pattern.search(readme):
+              raise RuntimeError("Contribution markers were not found in README.md")
+
+          updated = pattern.sub(block, readme)
+          if updated != readme:
+              with open(readme_path, "w", encoding="utf-8", newline="\n") as file:
+                  file.write(updated)
+          PY
+
+      - name: Commit changes
+        working-directory: repo
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- README.md; then
+            echo "Contribution list is already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: update merged pull requests"
+          git push
