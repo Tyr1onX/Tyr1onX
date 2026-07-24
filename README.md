@@ -14,7 +14,6 @@
 
 ## 项目与实践
 
-- [GitHubStatusCard](https://github.com/Tyr1onX/GithubStatusCard) — 自部署的 GitHub 数据卡片，新增年度与累计提交展示，并完善卡片布局与测试
 - [Accounting Excel Tool](https://github.com/Tyr1onX/accounting-excel-tool) — 面向真实会计需求的 Excel 自动化工具
 
 ## 开源与协作
