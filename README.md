@@ -14,7 +14,8 @@
 
 ## 项目与实践
 
-- [Accounting Excel Tool](https://github.com/Tyr1onX/accounting-excel-tool) — 面向真实会计需求的 Excel 自动化工具
+- [Desktop Course Widget](https://github.com/Tyr1onX/desktop-course-widget) — Windows 本地桌面课表组件，支持 Excel 导入、课表预览、作息设置和系统托盘
+- [Accounting Excel Tool](https://github.com/Tyr1onX/accounting-excel-tool) — 本地会计 Excel 自动化工具，可生成余额、往来、费用利润及异常检查报表
 
 ## 开源与协作
 
