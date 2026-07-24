@@ -33,7 +33,7 @@
 
 ## GitHub 数据
 
-[![GitHub 数据](https://github-status-card-seven.vercel.app/api?username=Tyr1onX&commits_year=2026&include_all_commits=true&show=total_commits_all_time&locale=cn)](https://github.com/Tyr1onX)
+[![GitHub 数据](https://github-status-card-seven.vercel.app/api?username=Tyr1onX&commits_year=2026&include_all_commits=true&show=total_commits_all_time&locale=cn&rank_icon=github)](https://github.com/Tyr1onX)
 
 ## 联系方式
 
