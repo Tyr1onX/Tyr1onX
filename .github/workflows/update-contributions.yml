@@ -29,7 +29,7 @@ jobs:
         working-directory: repo
         env:
           PROFILE_LOGIN: Tyr1onX
-          CONTRIBUTION_LIMIT: "8"
+          CONTRIBUTION_LIMIT: "5"
         run: |
           set -euo pipefail
           python3 <<'PY'
