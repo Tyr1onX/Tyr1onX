@@ -22,11 +22,11 @@
 我通过真实开源项目练习问题定位、代码修改、回归测试和 Pull Request 协作流程。
 
 <!-- OPEN_SOURCE_CONTRIBUTIONS:START -->
+- [shuakami/qq-chat-exporter #613](https://github.com/shuakami/qq-chat-exporter/pull/613) — fix(ui): 允许预览继续加载更早消息
+- [shuakami/qq-chat-exporter #612](https://github.com/shuakami/qq-chat-exporter/pull/612) — fix(scheduler): 兼容预设任务的空 cronExpression
 - [Fmarzochi/EGC #984](https://github.com/Fmarzochi/EGC/pull/984) — fix(docs): keep supported harness count in sync
-- [Fmarzochi/EGC #965](https://github.com/Fmarzochi/EGC/pull/965) — feat(install): add native Cline install target
-- [Fmarzochi/EGC #962](https://github.com/Fmarzochi/EGC/pull/962) — feat(install): add native Qwen Code install target
-- [Fmarzochi/EGC #957](https://github.com/Fmarzochi/EGC/pull/957) — feat(install): add native Roo Code install target
-- [Fmarzochi/EGC #953](https://github.com/Fmarzochi/EGC/pull/953) — fix(dashboard): avoid watcher stat-open race
+- [Tyr1onX/GithubStatusCard #2](https://github.com/Tyr1onX/GithubStatusCard/pull/2) — feat: show yearly and all-time commits
+- [Tyr1onX/GithubStatusCard #1](https://github.com/Tyr1onX/GithubStatusCard/pull/1) — fix: scope extended canvas to stats mascot
 <!-- OPEN_SOURCE_CONTRIBUTIONS:END -->
 
 [查看我的全部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX&type=pullrequests)
