@@ -22,11 +22,11 @@
 我通过真实开源项目练习问题定位、代码修改、回归测试和 Pull Request 协作流程。
 
 <!-- OPEN_SOURCE_CONTRIBUTIONS:START -->
-- [shuakami/qq-chat-exporter #613](https://github.com/shuakami/qq-chat-exporter/pull/613) — fix(ui): 允许预览继续加载更早消息
-- [shuakami/qq-chat-exporter #612](https://github.com/shuakami/qq-chat-exporter/pull/612) — fix(scheduler): 兼容预设任务的空 cronExpression
-- [Fmarzochi/EGC #984](https://github.com/Fmarzochi/EGC/pull/984) — fix(docs): keep supported harness count in sync
-- [Tyr1onX/GithubStatusCard #2](https://github.com/Tyr1onX/GithubStatusCard/pull/2) — feat: show yearly and all-time commits
-- [Tyr1onX/GithubStatusCard #1](https://github.com/Tyr1onX/GithubStatusCard/pull/1) — fix: scope extended canvas to stats mascot
+- [Tyr1onX/desktop-course-widget #24](https://github.com/Tyr1onX/desktop-course-widget/pull/24) — docs: rewrite website around 课刻 brand
+- [Tyr1onX/desktop-course-widget #23](https://github.com/Tyr1onX/desktop-course-widget/pull/23) — design: harmonize widget colors
+- [Tyr1onX/desktop-course-widget #21](https://github.com/Tyr1onX/desktop-course-widget/pull/21) — design: refresh website app icon
+- [Tyr1onX/desktop-course-widget #20](https://github.com/Tyr1onX/desktop-course-widget/pull/20) — design: refine time-flow color hierarchy
+- [Tyr1onX/desktop-course-widget #18](https://github.com/Tyr1onX/desktop-course-widget/pull/18) — design: make the widget express the flow of time
 <!-- OPEN_SOURCE_CONTRIBUTIONS:END -->
 
 [查看我的全部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX&type=pullrequests)
