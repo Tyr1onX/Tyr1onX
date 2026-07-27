@@ -22,11 +22,11 @@
 我通过真实开源项目练习问题定位、代码修改、回归测试和 Pull Request 协作流程。
 
 <!-- OPEN_SOURCE_CONTRIBUTIONS:START -->
-- [Tyr1onX/desktop-course-widget #24](https://github.com/Tyr1onX/desktop-course-widget/pull/24) — docs: rewrite website around 课刻 brand
-- [Tyr1onX/desktop-course-widget #23](https://github.com/Tyr1onX/desktop-course-widget/pull/23) — design: harmonize widget colors
-- [Tyr1onX/desktop-course-widget #21](https://github.com/Tyr1onX/desktop-course-widget/pull/21) — design: refresh website app icon
-- [Tyr1onX/desktop-course-widget #20](https://github.com/Tyr1onX/desktop-course-widget/pull/20) — design: refine time-flow color hierarchy
-- [Tyr1onX/desktop-course-widget #18](https://github.com/Tyr1onX/desktop-course-widget/pull/18) — design: make the widget express the flow of time
+- [Tyr1onX/Tyr1onX.github.io #12](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/12) — style: refine star visibility and glow
+- [Tyr1onX/Tyr1onX.github.io #11](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/11) — feat: improve stars and wind
+- [Tyr1onX/Tyr1onX.github.io #10](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/10) — fix: connect warm stars at their top tips
+- [Tyr1onX/Tyr1onX.github.io #9](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/9) — feat: refine stars with age and wind
+- [Tyr1onX/desktop-course-widget #55](https://github.com/Tyr1onX/desktop-course-widget/pull/55) — feat: add time texture and first-mark homepage motion
 <!-- OPEN_SOURCE_CONTRIBUTIONS:END -->
 
 [查看我的全部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX&type=pullrequests)
