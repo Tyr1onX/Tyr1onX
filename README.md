@@ -29,6 +29,10 @@
 
 [查看全部外部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX+-user%3ATyr1onX&type=pullrequests)
 
+## GitHub 数据
+
+[![GitHub 数据](https://github-status-card-seven.vercel.app/api?username=Tyr1onX&commits_year=2026&include_all_commits=true&show=total_commits_all_time&locale=cn&rank_icon=github)](https://github.com/Tyr1onX)
+
 ## 联系
 
 [个人主页](https://tyr1onx.github.io) · [GitHub](https://github.com/Tyr1onX) · [Email](mailto:yit38331@gmail.com)
