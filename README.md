@@ -1,45 +1,34 @@
-# 你好，我是 Tyr1onX 
+# Tyr1onX
 
-吉林大学通信工程本科生
+<!-- 这里以后可以放一句你真正想留下的话 -->
 
-我希望从 C/C++、Linux 和单片机基础出发，逐步理解设备、协议与系统之间是如何协同工作的，并通过真实项目检验自己的工程能力。
+## 项目
 
-## 技术与工具
+- [Desktop Course Widget](https://github.com/Tyr1onX/desktop-course-widget)  
+  Windows 本地桌面课表组件，支持 Excel 导入、课表管理、作息设置与桌面展示。
 
-### 主要使用
+- [Tyr1onX.github.io](https://github.com/Tyr1onX/Tyr1onX.github.io)  
+  一个持续生长的个人数字空间，用来保存项目、思考与经历。
 
-![C++](https://img.shields.io/badge/C++-%2300599C.svg?style=flat-square&logo=cplusplus&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
+- [Accounting Excel Tool](https://github.com/Tyr1onX/accounting-excel-tool)  
+  面向本地 Excel 工作流的会计自动化工具，用于生成常用报表并检查数据异常。
 
-## 项目与实践
+## 开源协作
 
-- [Desktop Course Widget](https://github.com/Tyr1onX/desktop-course-widget) — Windows 本地桌面课表组件，支持 Excel 导入、课表预览、作息设置和系统托盘
-- [Accounting Excel Tool](https://github.com/Tyr1onX/accounting-excel-tool) — 本地会计 Excel 自动化工具，可生成余额、往来、费用利润及异常检查报表
+目前作为 [EGC](https://github.com/Fmarzochi/EGC) Collaborator，参与工具集成、问题修复、回归测试与项目维护。
 
-## 开源与协作
-
-我通过真实开源项目练习问题定位、代码修改、回归测试和 Pull Request 协作流程。
+以下仅展示我在其他开源项目中已合并的 Pull Requests：
 
 <!-- OPEN_SOURCE_CONTRIBUTIONS:START -->
-- [Tyr1onX/Tyr1onX.github.io #32](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/32) — fix: keep the Keke orbit shell transparent
-- [Tyr1onX/Tyr1onX.github.io #31](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/31) — fix: resume Keke orbit smoothly after page restore
-- [Tyr1onX/Tyr1onX.github.io #30](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/30) — fix: use the finalized 1024px Keke icon without raster blur
-- [Tyr1onX/desktop-course-widget #62](https://github.com/Tyr1onX/desktop-course-widget/pull/62) — feat: add import review and correction screen
-- [Tyr1onX/Tyr1onX.github.io #29](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/29) — fix: restore the actual colorful Keke icon
+- [Fmarzochi/EGC #984](https://github.com/Fmarzochi/EGC/pull/984) — fix(docs): keep supported harness count in sync
+- [Fmarzochi/EGC #965](https://github.com/Fmarzochi/EGC/pull/965) — feat(install): add native Cline install target
+- [Fmarzochi/EGC #962](https://github.com/Fmarzochi/EGC/pull/962) — feat(install): add native Qwen Code install target
+- [Fmarzochi/EGC #957](https://github.com/Fmarzochi/EGC/pull/957) — feat(install): add native Roo Code install target
+- [Fmarzochi/EGC #953](https://github.com/Fmarzochi/EGC/pull/953) — fix(dashboard): avoid watcher stat-open race
 <!-- OPEN_SOURCE_CONTRIBUTIONS:END -->
 
-[查看我的全部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX&type=pullrequests)
+[查看全部外部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX+-user%3ATyr1onX&type=pullrequests)
 
-## GitHub 数据
+## 联系
 
-[![GitHub 数据](https://github-status-card-seven.vercel.app/api?username=Tyr1onX&commits_year=2026&include_all_commits=true&show=total_commits_all_time&locale=cn&rank_icon=github)](https://github.com/Tyr1onX)
-
-## 联系方式
-
-<a href="https://github.com/Tyr1onX">
-  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
-</a>
-<a href="mailto:yit38331@gmail.com">
-  <img src="https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white" />
-</a>
+[个人主页](https://tyr1onx.github.io) · [GitHub](https://github.com/Tyr1onX) · [Email](mailto:yit38331@gmail.com)
