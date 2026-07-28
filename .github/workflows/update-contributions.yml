@@ -45,7 +45,7 @@ jobs:
           limit = int(os.environ["CONTRIBUTION_LIMIT"])
 
           params = urllib.parse.urlencode({
-              "q": f"author:{login} is:pr is:merged",
+              "q": f"author:{login} is:pr is:merged -user:{login}",
               "sort": "updated",
               "order": "desc",
               "per_page": "100",
@@ -81,6 +81,10 @@ jobs:
                   continue
 
               repository = repository_url.split("/repos/", 1)[1]
+              repository_owner = repository.split("/", 1)[0]
+              if repository_owner.casefold() == login.casefold():
+                  continue
+
               title = " ".join(item.get("title", "").split())
               title = (
                   title.replace("\\", "\\\\")
