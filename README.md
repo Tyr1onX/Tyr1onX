@@ -22,11 +22,11 @@
 我通过真实开源项目练习问题定位、代码修改、回归测试和 Pull Request 协作流程。
 
 <!-- OPEN_SOURCE_CONTRIBUTIONS:START -->
-- [Tyr1onX/Tyr1onX.github.io #12](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/12) — style: refine star visibility and glow
-- [Tyr1onX/Tyr1onX.github.io #11](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/11) — feat: improve stars and wind
-- [Tyr1onX/Tyr1onX.github.io #10](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/10) — fix: connect warm stars at their top tips
-- [Tyr1onX/Tyr1onX.github.io #9](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/9) — feat: refine stars with age and wind
-- [Tyr1onX/desktop-course-widget #55](https://github.com/Tyr1onX/desktop-course-widget/pull/55) — feat: add time texture and first-mark homepage motion
+- [Tyr1onX/Tyr1onX.github.io #32](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/32) — fix: keep the Keke orbit shell transparent
+- [Tyr1onX/Tyr1onX.github.io #31](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/31) — fix: resume Keke orbit smoothly after page restore
+- [Tyr1onX/Tyr1onX.github.io #30](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/30) — fix: use the finalized 1024px Keke icon without raster blur
+- [Tyr1onX/desktop-course-widget #62](https://github.com/Tyr1onX/desktop-course-widget/pull/62) — feat: add import review and correction screen
+- [Tyr1onX/Tyr1onX.github.io #29](https://github.com/Tyr1onX/Tyr1onX.github.io/pull/29) — fix: restore the actual colorful Keke icon
 <!-- OPEN_SOURCE_CONTRIBUTIONS:END -->
 
 [查看我的全部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX&type=pullrequests)
