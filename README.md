@@ -20,11 +20,11 @@
 以下仅展示我在其他开源项目中已合并的 Pull Requests：
 
 <!-- OPEN_SOURCE_CONTRIBUTIONS:START -->
+- [Fmarzochi/EGC #1118](https://github.com/Fmarzochi/EGC/pull/1118) — feat(crusher): add scoped savings breakdown to egc gain
 - [Fmarzochi/EGC #1115](https://github.com/Fmarzochi/EGC/pull/1115) — fix(opencode): restore project context on session creation
 - [Fmarzochi/EGC #1056](https://github.com/Fmarzochi/EGC/pull/1056) — fix(install): clarify first-time setup lifecycle
 - [shuakami/qq-chat-exporter #619](https://github.com/shuakami/qq-chat-exporter/pull/619) — fix(linux): 兼容 QQNT 3.2.29 的 ESM 启动作用域
 - [shuakami/qq-chat-exporter #617](https://github.com/shuakami/qq-chat-exporter/pull/617) — fix(installer): 多版本 QQ 共存时优先选择 QQNT
-- [shuakami/qq-chat-exporter #615](https://github.com/shuakami/qq-chat-exporter/pull/615) — docs(auth): 区分 QCE 与 NapCat 的访问令牌
 <!-- OPEN_SOURCE_CONTRIBUTIONS:END -->
 
 [查看全部外部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX+-user%3ATyr1onX&type=pullrequests)
