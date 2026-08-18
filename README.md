@@ -19,14 +19,10 @@
 
 目前作为 [EGC](https://github.com/Fmarzochi/EGC) Collaborator，参与工具集成、问题修复、回归测试与项目维护。
 
-以下仅展示我在其他开源项目中已合并的 Pull Requests：
-
 <!-- OPEN_SOURCE_CONTRIBUTIONS:START -->
 - [Fmarzochi/EGC #1303](https://github.com/Fmarzochi/EGC/pull/1303) — fix(crusher): preserve English diagnostic inflections
 - [Avenx-JS/avenx-js #1050](https://github.com/Avenx-JS/avenx-js/pull/1050) — feat(cli): support custom HTTP headers in avenx serve
-- [Fmarzochi/EGC #1284](https://github.com/Fmarzochi/EGC/pull/1284) — test(mesh): harden chaos harness cleanup
 - [Fmarzochi/EGC #1271](https://github.com/Fmarzochi/EGC/pull/1271) — fix(mesh): make session event delivery exactly-once across readers
-- [Fmarzochi/EGC #1118](https://github.com/Fmarzochi/EGC/pull/1118) — feat(crusher): add scoped savings breakdown to egc gain
 <!-- OPEN_SOURCE_CONTRIBUTIONS:END -->
 
 [查看全部外部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX+-user%3ATyr1onX&type=pullrequests)
