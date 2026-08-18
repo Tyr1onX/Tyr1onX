@@ -2,16 +2,18 @@
 
 > 操千曲而后晓声，观千剑而后识器。
 
+做一些真正能用的东西，也持续参与开源协作。
+
 ## 项目
 
-- [Desktop Course Widget](https://github.com/Tyr1onX/desktop-course-widget)  
-  Windows 本地桌面课表组件，支持 Excel 导入、课表管理、作息设置与桌面展示。
+- [课刻 · Desktop Course Widget](https://github.com/Tyr1onX/desktop-course-widget)  
+  Windows 本地桌面课表，让一天在桌面上缓慢流动。支持课表导入、编辑与桌面展示。
 
-- [Tyr1onX.github.io](https://github.com/Tyr1onX/Tyr1onX.github.io)  
-  一个持续生长的个人数字空间，用来保存项目、思考与经历。
+- [Knowledge Constellation · 知识星图](https://github.com/Tyr1onX/knowledge-constellation)  
+  一个 Codex Skill，把项目、GitHub、笔记与学习记录组织成可探索、会生长的个人知识星图。
 
-- [Accounting Excel Tool](https://github.com/Tyr1onX/accounting-excel-tool)  
-  面向本地 Excel 工作流的会计自动化工具，用于生成常用报表并检查数据异常。
+- [Safe Markdown Output](https://github.com/Tyr1onX/safe-markdown-output)  
+  一个很小的 Agent Skill，用安全的外层 fence 避免嵌套代码块导致原始 Markdown 输出被截断。
 
 ## 开源协作
 
