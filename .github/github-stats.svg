@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="230" viewBox="0 0 720 230" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub 数据</title>
+  <desc id="desc">Tyr1onX 的 GitHub 数据卡片，正在进行首次同步。</desc>
+  <style>
+    .bg { fill: #ffffff; stroke: #d0d7de; }
+    .title { fill: #1f2328; font: 600 20px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .sub { fill: #656d76; font: 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .label { fill: #656d76; font: 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .value { fill: #1f2328; font: 600 24px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .accent { fill: #0969da; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; stroke: #30363d; }
+      .title, .value { fill: #e6edf3; }
+      .sub, .label { fill: #8b949e; }
+      .accent { fill: #58a6ff; }
+    }
+  </style>
+  <rect class="bg" x="0.5" y="0.5" width="719" height="229" rx="10" />
+  <circle class="accent" cx="30" cy="31" r="5" />
+  <text class="title" x="45" y="38">GitHub 数据 · 2026</text>
+  <text class="sub" x="30" y="66">Tyr1onX · 仓库自维护 · 首次同步中</text>
+
+  <text class="label" x="30" y="112">今年贡献</text>
+  <text class="value" x="30" y="143">—</text>
+  <text class="label" x="255" y="112">代码提交</text>
+  <text class="value" x="255" y="143">—</text>
+  <text class="label" x="480" y="112">Pull Requests</text>
+  <text class="value" x="480" y="143">—</text>
+
+  <text class="label" x="30" y="181">Issues</text>
+  <text class="value" x="30" y="212">—</text>
+  <text class="label" x="255" y="181">公开仓库</text>
+  <text class="value" x="255" y="212">—</text>
+  <text class="label" x="480" y="181">获得 Stars</text>
+  <text class="value" x="480" y="212">—</text>
+</svg>
