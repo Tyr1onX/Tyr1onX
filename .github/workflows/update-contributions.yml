@@ -253,78 +253,71 @@ jobs:
           def number(value):
               return f"{int(value):,}"
 
-          svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="720" height="260" viewBox="0 0 720 260" role="img" aria-labelledby="title desc">
-            <title id="title">GitHub 数据</title>
-            <desc id="desc">{login} 在 {now.year} 年的 GitHub 数据，由仓库 GitHub Actions 自动更新。</desc>
+          svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="720" height="278" viewBox="0 0 720 278" role="img" aria-labelledby="title desc">
+            <title id="title">GitHub 活动</title>
+            <desc id="desc">{login} 在 {now.year} 年的 GitHub 公开活动数据。</desc>
             <style>
               .bg {{ fill: #ffffff; stroke: #d0d7de; }}
-              .panel {{ fill: #f6f8fa; stroke: #eaeef2; }}
               .rule {{ stroke: #d8dee4; }}
-              .title {{ fill: #1f2328; font: 600 19px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
-              .sub {{ fill: #656d76; font: 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
-              .label {{ fill: #656d76; font: 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
-              .value {{ fill: #1f2328; font: 600 24px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
-              .value-accent {{ fill: #0969da; }}
+              .mark {{ fill: #24292f; }}
+              .title {{ fill: #1f2328; font: 600 17px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
+              .year {{ fill: #656d76; font: 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
+              .eyebrow {{ fill: #656d76; font: 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; letter-spacing: .4px; }}
+              .hero {{ fill: #1f2328; font: 600 48px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-variant-numeric: tabular-nums; }}
+              .caption {{ fill: #8c959f; font: 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
+              .metric-label {{ fill: #656d76; font: 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
+              .metric-value {{ fill: #1f2328; font: 600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-variant-numeric: tabular-nums; }}
               .foot {{ fill: #8c959f; font: 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
-              .mark {{ fill: #57606a; }}
-              .badge {{ fill: #ddf4ff; stroke: #b6e3ff; }}
-              .badge-text {{ fill: #0969da; font: 600 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
-              .live {{ fill: #1a7f37; }}
-              .top-accent {{ fill: #0969da; }}
+              .activity {{ fill: #1f883d; }}
               @media (prefers-color-scheme: dark) {{
                 .bg {{ fill: #0d1117; stroke: #30363d; }}
-                .panel {{ fill: #161b22; stroke: #21262d; }}
                 .rule {{ stroke: #30363d; }}
-                .title, .value {{ fill: #e6edf3; }}
-                .sub, .label {{ fill: #8b949e; }}
-                .foot {{ fill: #6e7681; }}
-                .mark {{ fill: #8b949e; }}
-                .badge {{ fill: #121d2f; stroke: #1f6feb; }}
-                .badge-text, .value-accent {{ fill: #58a6ff; }}
-                .live {{ fill: #3fb950; }}
-                .top-accent {{ fill: #58a6ff; }}
+                .mark {{ fill: #f0f6fc; }}
+                .title, .hero, .metric-value {{ fill: #e6edf3; }}
+                .year, .eyebrow, .metric-label {{ fill: #8b949e; }}
+                .caption, .foot {{ fill: #6e7681; }}
+                .activity {{ fill: #3fb950; }}
               }}
             </style>
 
-            <rect class="bg" x="0.5" y="0.5" width="719" height="259" rx="12" />
-            <path class="top-accent" d="M12 .5h696a11.5 11.5 0 0 1 11.5 11.5v1H.5v-1A11.5 11.5 0 0 1 12 .5Z" opacity=".9" />
+            <rect class="bg" x="0.5" y="0.5" width="719" height="277" rx="6" />
 
-            <g class="mark" transform="translate(25 23) scale(.76)">
+            <g class="mark" transform="translate(24 18) scale(.82)">
               <path d="M12 2.7a9.5 9.5 0 0 0-3 18.52c.48.1.65-.2.65-.46v-1.83c-2.65.58-3.2-1.12-3.2-1.12-.43-1.1-1.06-1.4-1.06-1.4-.87-.6.07-.59.07-.59.96.07 1.46.99 1.46.99.85 1.46 2.24 1.04 2.79.8.08-.62.33-1.04.6-1.28-2.12-.24-4.35-1.06-4.35-4.7 0-1.04.37-1.89.98-2.56-.1-.24-.43-1.21.09-2.52 0 0 .8-.26 2.61.98A9.1 9.1 0 0 1 12 7.22a9 9 0 0 1 2.38.32c1.81-1.23 2.61-.98 2.61-.98.52 1.31.19 2.28.09 2.52.61.67.98 1.52.98 2.56 0 3.65-2.24 4.46-4.37 4.7.34.3.65.88.65 1.78v2.64c0 .26.17.57.66.46A9.5 9.5 0 0 0 12 2.7Z" />
             </g>
-            <text class="title" x="52" y="39">GitHub 数据</text>
-            <text class="sub" x="52" y="58">{login} · 自动更新的公开活动概览</text>
-            <rect class="badge" x="631" y="25" width="60" height="25" rx="12.5" />
-            <text class="badge-text" x="661" y="42" text-anchor="middle">{now.year}</text>
-            <line class="rule" x1="24" y1="76.5" x2="696" y2="76.5" />
+            <text class="title" x="51" y="35">GitHub 活动</text>
+            <text class="year" x="696" y="34" text-anchor="end">@{login} · {now.year}</text>
+            <line class="rule" x1="24" y1="58.5" x2="696" y2="58.5" />
 
-            <rect class="panel" x="24" y="91" width="216" height="58" rx="8" />
-            <text class="label" x="39" y="111">今年贡献</text>
-            <text class="value value-accent" x="39" y="138">{number(metrics['contributions'])}</text>
+            <text class="eyebrow" x="26" y="91">今年贡献</text>
+            <text class="hero" x="24" y="145">{number(metrics['contributions'])}</text>
+            <rect class="activity" x="26" y="161" width="46" height="3" rx="1.5" />
+            <text class="caption" x="26" y="184">{now.year} 年公开活动</text>
 
-            <rect class="panel" x="252" y="91" width="216" height="58" rx="8" />
-            <text class="label" x="267" y="111">代码提交</text>
-            <text class="value" x="267" y="138">{number(metrics['commits'])}</text>
+            <line class="rule" x1="310.5" y1="79" x2="310.5" y2="224" />
 
-            <rect class="panel" x="480" y="91" width="216" height="58" rx="8" />
-            <text class="label" x="495" y="111">Pull Requests</text>
-            <text class="value" x="495" y="138">{number(metrics['pull_requests'])}</text>
+            <text class="metric-label" x="340" y="94">代码提交</text>
+            <text class="metric-value" x="680" y="94" text-anchor="end">{number(metrics['commits'])}</text>
+            <line class="rule" x1="340" y1="106.5" x2="680" y2="106.5" />
 
-            <rect class="panel" x="24" y="161" width="216" height="58" rx="8" />
-            <text class="label" x="39" y="181">Issues</text>
-            <text class="value" x="39" y="208">{number(metrics['issues'])}</text>
+            <text class="metric-label" x="340" y="124">Pull requests</text>
+            <text class="metric-value" x="680" y="124" text-anchor="end">{number(metrics['pull_requests'])}</text>
+            <line class="rule" x1="340" y1="136.5" x2="680" y2="136.5" />
 
-            <rect class="panel" x="252" y="161" width="216" height="58" rx="8" />
-            <text class="label" x="267" y="181">公开仓库</text>
-            <text class="value" x="267" y="208">{number(metrics['repositories'])}</text>
+            <text class="metric-label" x="340" y="154">Issues</text>
+            <text class="metric-value" x="680" y="154" text-anchor="end">{number(metrics['issues'])}</text>
+            <line class="rule" x1="340" y1="166.5" x2="680" y2="166.5" />
 
-            <rect class="panel" x="480" y="161" width="216" height="58" rx="8" />
-            <text class="label" x="495" y="181">获得 Stars</text>
-            <text class="value" x="495" y="208">{number(metrics['stars'])}</text>
+            <text class="metric-label" x="340" y="184">公开仓库</text>
+            <text class="metric-value" x="680" y="184" text-anchor="end">{number(metrics['repositories'])}</text>
+            <line class="rule" x1="340" y1="196.5" x2="680" y2="196.5" />
 
-            <circle class="live" cx="29" cy="242" r="3" />
-            <text class="foot" x="38" y="246">GitHub API</text>
-            <text class="foot" x="691" y="246" text-anchor="end">更新于 {now.strftime('%Y-%m-%d %H:%M')} UTC</text>
+            <text class="metric-label" x="340" y="214">获得 Stars</text>
+            <text class="metric-value" x="680" y="214" text-anchor="end">{number(metrics['stars'])}</text>
+
+            <line class="rule" x1="24" y1="236.5" x2="696" y2="236.5" />
+            <text class="foot" x="24" y="260">Public GitHub activity</text>
+            <text class="foot" x="696" y="260" text-anchor="end">更新于 {now.strftime('%Y-%m-%d %H:%M')} UTC</text>
           </svg>
           '''
 
