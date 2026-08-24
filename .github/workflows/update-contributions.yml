@@ -1,15 +1,20 @@
-name: Update merged pull requests
+name: Update profile data
 
 on:
   workflow_dispatch:
   schedule:
     - cron: "15 0 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/update-contributions.yml"
 
 permissions:
   contents: write
 
 concurrency:
-  group: update-profile-contributions
+  group: update-profile-data
   cancel-in-progress: true
 
 jobs:
@@ -25,14 +30,16 @@ jobs:
           set -euo pipefail
           git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" repo
 
-      - name: Refresh contribution list
+      - name: Refresh profile data
         working-directory: repo
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROFILE_LOGIN: Tyr1onX
           CONTRIBUTION_LIMIT: "5"
         run: |
           set -euo pipefail
           python3 <<'PY'
+          import datetime as dt
           import json
           import os
           import re
@@ -43,37 +50,56 @@ jobs:
 
           login = os.environ["PROFILE_LOGIN"]
           limit = int(os.environ["CONTRIBUTION_LIMIT"])
+          token = os.environ["GH_TOKEN"]
 
+          common_headers = {
+              "Accept": "application/vnd.github+json",
+              "Authorization": f"Bearer {token}",
+              "User-Agent": "profile-data-updater",
+              "X-GitHub-Api-Version": "2022-11-28",
+          }
+
+          def request_json(url, *, payload=None, headers=None):
+              merged_headers = dict(common_headers)
+              if headers:
+                  merged_headers.update(headers)
+
+              body = None
+              if payload is not None:
+                  body = json.dumps(payload).encode("utf-8")
+                  merged_headers["Content-Type"] = "application/json"
+
+              for attempt in range(3):
+                  request = urllib.request.Request(
+                      url,
+                      data=body,
+                      headers=merged_headers,
+                      method="POST" if payload is not None else "GET",
+                  )
+                  try:
+                      with urllib.request.urlopen(request, timeout=30) as response:
+                          return json.load(response)
+                  except urllib.error.HTTPError as error:
+                      details = error.read().decode("utf-8", errors="replace")
+                      if attempt == 2 or error.code not in {403, 429, 502, 503}:
+                          raise RuntimeError(
+                              f"GitHub request failed ({error.code}) for {url}: {details}"
+                          ) from error
+                      time.sleep(2 ** attempt)
+
+              raise RuntimeError(f"GitHub request returned no data for {url}")
+
+          # Keep the existing list of recently merged external pull requests.
           params = urllib.parse.urlencode({
               "q": f"author:{login} is:pr is:merged -user:{login}",
               "sort": "updated",
               "order": "desc",
               "per_page": "100",
           })
-          url = f"https://api.github.com/search/issues?{params}"
-          headers = {
-              "Accept": "application/vnd.github+json",
-              "User-Agent": "profile-readme-contribution-updater",
-          }
-
-          data = None
-          for attempt in range(3):
-              request = urllib.request.Request(url, headers=headers)
-              try:
-                  with urllib.request.urlopen(request, timeout=30) as response:
-                      data = json.load(response)
-                  break
-              except urllib.error.HTTPError as error:
-                  if attempt == 2 or error.code not in {403, 429, 502, 503}:
-                      details = error.read().decode("utf-8", errors="replace")
-                      raise RuntimeError(f"GitHub search failed ({error.code}): {details}") from error
-                  time.sleep(2 ** attempt)
-
-          if data is None:
-              raise RuntimeError("GitHub search returned no data")
+          search_data = request_json(f"https://api.github.com/search/issues?{params}")
 
           pull_requests = []
-          for item in data.get("items", []):
+          for item in search_data.get("items", []):
               pull_request = item.get("pull_request") or {}
               merged_at = pull_request.get("merged_at") or item.get("closed_at")
               repository_url = item.get("repository_url", "")
@@ -107,9 +133,7 @@ jobs:
           lines = [
               f"- [{item['repository']} #{item['number']}]({item['url']}) — {item['title']}"
               for item in pull_requests
-          ]
-          if not lines:
-              lines = ["_暂无已合并 Pull Request。_"]
+          ] or ["_暂无已合并 Pull Request。_"]
 
           start = "<!-- OPEN_SOURCE_CONTRIBUTIONS:START -->"
           end = "<!-- OPEN_SOURCE_CONTRIBUTIONS:END -->"
@@ -126,23 +150,167 @@ jobs:
           if not pattern.search(readme):
               raise RuntimeError("Contribution markers were not found in README.md")
 
-          updated = pattern.sub(block, readme)
-          if updated != readme:
+          updated_readme = pattern.sub(block, readme)
+          if updated_readme != readme:
               with open(readme_path, "w", encoding="utf-8", newline="\n") as file:
-                  file.write(updated)
+                  file.write(updated_readme)
+
+          # Fetch the profile metrics used by the repository-owned SVG card.
+          now = dt.datetime.now(dt.timezone.utc)
+          year_start = dt.datetime(now.year, 1, 1, tzinfo=dt.timezone.utc)
+          from_value = year_start.strftime("%Y-%m-%dT%H:%M:%SZ")
+          to_value = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+          profile_query = """
+          query($login: String!, $from: DateTime!, $to: DateTime!) {
+            user(login: $login) {
+              contributionsCollection(from: $from, to: $to) {
+                contributionCalendar { totalContributions }
+                totalCommitContributions
+                totalIssueContributions
+                totalPullRequestContributions
+              }
+              repositories(
+                ownerAffiliations: OWNER
+                privacy: PUBLIC
+                first: 100
+                orderBy: {field: UPDATED_AT, direction: DESC}
+              ) {
+                totalCount
+                nodes { stargazerCount }
+                pageInfo { hasNextPage endCursor }
+              }
+            }
+          }
+          """
+
+          graph = request_json(
+              "https://api.github.com/graphql",
+              payload={
+                  "query": profile_query,
+                  "variables": {
+                      "login": login,
+                      "from": from_value,
+                      "to": to_value,
+                  },
+              },
+          )
+          if graph.get("errors"):
+              raise RuntimeError(f"GitHub GraphQL failed: {graph['errors']}")
+
+          user = (graph.get("data") or {}).get("user")
+          if not user:
+              raise RuntimeError(f"GitHub user {login!r} was not found")
+
+          contributions = user["contributionsCollection"]
+          repositories = user["repositories"]
+          stars = sum(repo["stargazerCount"] for repo in repositories["nodes"])
+          page_info = repositories["pageInfo"]
+
+          repos_query = """
+          query($login: String!, $after: String!) {
+            user(login: $login) {
+              repositories(
+                ownerAffiliations: OWNER
+                privacy: PUBLIC
+                first: 100
+                after: $after
+                orderBy: {field: UPDATED_AT, direction: DESC}
+              ) {
+                nodes { stargazerCount }
+                pageInfo { hasNextPage endCursor }
+              }
+            }
+          }
+          """
+
+          while page_info["hasNextPage"]:
+              next_page = request_json(
+                  "https://api.github.com/graphql",
+                  payload={
+                      "query": repos_query,
+                      "variables": {
+                          "login": login,
+                          "after": page_info["endCursor"],
+                      },
+                  },
+              )
+              if next_page.get("errors"):
+                  raise RuntimeError(f"GitHub GraphQL pagination failed: {next_page['errors']}")
+              repo_page = next_page["data"]["user"]["repositories"]
+              stars += sum(repo["stargazerCount"] for repo in repo_page["nodes"])
+              page_info = repo_page["pageInfo"]
+
+          metrics = {
+              "contributions": contributions["contributionCalendar"]["totalContributions"],
+              "commits": contributions["totalCommitContributions"],
+              "pull_requests": contributions["totalPullRequestContributions"],
+              "issues": contributions["totalIssueContributions"],
+              "repositories": repositories["totalCount"],
+              "stars": stars,
+          }
+
+          def number(value):
+              return f"{int(value):,}"
+
+          svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="720" height="244" viewBox="0 0 720 244" role="img" aria-labelledby="title desc">
+            <title id="title">GitHub 数据</title>
+            <desc id="desc">{login} 在 {now.year} 年的 GitHub 数据，由仓库 GitHub Actions 自动更新。</desc>
+            <style>
+              .bg {{ fill: #ffffff; stroke: #d0d7de; }}
+              .title {{ fill: #1f2328; font: 600 20px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
+              .sub {{ fill: #656d76; font: 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
+              .label {{ fill: #656d76; font: 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
+              .value {{ fill: #1f2328; font: 600 25px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
+              .foot {{ fill: #8c959f; font: 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }}
+              .accent {{ fill: #0969da; }}
+              @media (prefers-color-scheme: dark) {{
+                .bg {{ fill: #0d1117; stroke: #30363d; }}
+                .title, .value {{ fill: #e6edf3; }}
+                .sub, .label {{ fill: #8b949e; }}
+                .foot {{ fill: #6e7681; }}
+                .accent {{ fill: #58a6ff; }}
+              }}
+            </style>
+            <rect class="bg" x="0.5" y="0.5" width="719" height="243" rx="10" />
+            <circle class="accent" cx="30" cy="31" r="5" />
+            <text class="title" x="45" y="38">GitHub 数据 · {now.year}</text>
+            <text class="sub" x="30" y="66">{login} · repository-owned · daily refresh</text>
+
+            <text class="label" x="30" y="112">今年贡献</text>
+            <text class="value" x="30" y="143">{number(metrics['contributions'])}</text>
+            <text class="label" x="255" y="112">代码提交</text>
+            <text class="value" x="255" y="143">{number(metrics['commits'])}</text>
+            <text class="label" x="480" y="112">Pull Requests</text>
+            <text class="value" x="480" y="143">{number(metrics['pull_requests'])}</text>
+
+            <text class="label" x="30" y="181">Issues</text>
+            <text class="value" x="30" y="212">{number(metrics['issues'])}</text>
+            <text class="label" x="255" y="181">公开仓库</text>
+            <text class="value" x="255" y="212">{number(metrics['repositories'])}</text>
+            <text class="label" x="480" y="181">获得 Stars</text>
+            <text class="value" x="480" y="212">{number(metrics['stars'])}</text>
+
+            <text class="foot" x="690" y="231" text-anchor="end">更新于 {now.strftime('%Y-%m-%d %H:%M')} UTC</text>
+          </svg>
+          '''
+
+          stats_path = ".github/github-stats.svg"
+          with open(stats_path, "w", encoding="utf-8", newline="\n") as file:
+              file.write(svg)
           PY
 
       - name: Commit changes
         working-directory: repo
         run: |
           set -euo pipefail
-          if git diff --quiet -- README.md; then
-            echo "Contribution list is already current."
+          if git diff --quiet -- README.md .github/github-stats.svg; then
+            echo "Profile data is already current."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "chore: update merged pull requests"
+          git add README.md .github/github-stats.svg
+          git commit -m "chore: refresh profile data"
           git push
