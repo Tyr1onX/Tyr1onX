@@ -29,6 +29,5 @@
 
 [查看全部外部已合并 Pull Requests →](https://github.com/search?q=is%3Apr+is%3Amerged+author%3ATyr1onX+-user%3ATyr1onX&type=pullrequests)
 
-## GitHub 数据
 
 [![GitHub 数据](./.github/github-stats.svg)](https://github.com/Tyr1onX)
