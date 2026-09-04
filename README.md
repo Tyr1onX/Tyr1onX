@@ -17,3 +17,5 @@ Windows 本地桌面课表。从学校教务系统导入课表，在桌面查看
 **让 ChatGPT 安全地使用你电脑上的本地能力。**
 
 运行在本机后台的本地桥接器。让 ChatGPT 在授权的 Workspace 范围内读取和修改文件、查看 Git、运行程序，并使用独立浏览器。
+
+[![GitHub 数据](./.github/github-stats.svg)](https://github.com/Tyr1onX)
