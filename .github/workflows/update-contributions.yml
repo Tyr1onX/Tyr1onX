@@ -35,21 +35,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROFILE_LOGIN: Tyr1onX
-          CONTRIBUTION_LIMIT: "5"
         run: |
           set -euo pipefail
           python3 <<'PY'
           import datetime as dt
           import json
           import os
-          import re
           import time
           import urllib.error
-          import urllib.parse
           import urllib.request
 
           login = os.environ["PROFILE_LOGIN"]
-          limit = int(os.environ["CONTRIBUTION_LIMIT"])
           token = os.environ["GH_TOKEN"]
 
           common_headers = {
@@ -88,72 +84,6 @@ jobs:
                       time.sleep(2 ** attempt)
 
               raise RuntimeError(f"GitHub request returned no data for {url}")
-
-          # Keep the existing list of recently merged external pull requests.
-          params = urllib.parse.urlencode({
-              "q": f"author:{login} is:pr is:merged -user:{login}",
-              "sort": "updated",
-              "order": "desc",
-              "per_page": "100",
-          })
-          search_data = request_json(f"https://api.github.com/search/issues?{params}")
-
-          pull_requests = []
-          for item in search_data.get("items", []):
-              pull_request = item.get("pull_request") or {}
-              merged_at = pull_request.get("merged_at") or item.get("closed_at")
-              repository_url = item.get("repository_url", "")
-              if not merged_at or "/repos/" not in repository_url:
-                  continue
-
-              repository = repository_url.split("/repos/", 1)[1]
-              repository_owner = repository.split("/", 1)[0]
-              if repository_owner.casefold() == login.casefold():
-                  continue
-
-              title = " ".join(item.get("title", "").split())
-              title = (
-                  title.replace("\\", "\\\\")
-                  .replace("[", "\\[")
-                  .replace("]", "\\]")
-                  .replace("<", "&lt;")
-                  .replace(">", "&gt;")
-              )
-              pull_requests.append({
-                  "merged_at": merged_at,
-                  "repository": repository,
-                  "number": item["number"],
-                  "url": item["html_url"],
-                  "title": title,
-              })
-
-          pull_requests.sort(key=lambda item: item["merged_at"], reverse=True)
-          pull_requests = pull_requests[:limit]
-
-          lines = [
-              f"- [{item['repository']} #{item['number']}]({item['url']}) — {item['title']}"
-              for item in pull_requests
-          ] or ["_暂无已合并 Pull Request。_"]
-
-          start = "<!-- OPEN_SOURCE_CONTRIBUTIONS:START -->"
-          end = "<!-- OPEN_SOURCE_CONTRIBUTIONS:END -->"
-          block = f"{start}\n" + "\n".join(lines) + f"\n{end}"
-
-          readme_path = "README.md"
-          with open(readme_path, "r", encoding="utf-8") as file:
-              readme = file.read()
-
-          pattern = re.compile(
-              rf"{re.escape(start)}.*?{re.escape(end)}",
-              flags=re.DOTALL,
-          )
-          if not pattern.search(readme):
-              raise RuntimeError("Contribution markers were not found in README.md")
-
-          updated_readme = pattern.sub(block, readme)
-          if updated_readme != readme:
-              with open(readme_path, "w", encoding="utf-8", newline="\n") as file:
-                  file.write(updated_readme)
 
           # Fetch the profile metrics used by the repository-owned SVG card.
           now = dt.datetime.now(dt.timezone.utc)
@@ -283,7 +213,7 @@ jobs:
             <rect class="bg" x="0.5" y="0.5" width="719" height="277" rx="6" />
 
             <g class="mark" transform="translate(24 18) scale(.82)">
-              <path d="M12 2.7a9.5 9.5 0 0 0-3 18.52c.48.1.65-.2.65-.46v-1.83c-2.65.58-3.2-1.12-3.2-1.12-.43-1.1-1.06-1.4-1.06-1.4-.87-.6.07-.59.07-.59.96.07 1.46.99 1.46.99.85 1.46 2.24 1.04 2.79.8.08-.62.33-1.04.6-1.28-2.12-.24-4.35-1.06-4.35-4.7 0-1.04.37-1.89.98-2.56-.1-.24-.43-1.21.09-2.52 0 0 .8-.26 2.61.98A9.1 9.1 0 0 1 12 7.22a9 9 0 0 1 2.38.32c1.81-1.23 2.61-.98 2.61-.98.52 1.31.19 2.28.09 2.52.61.67.98 1.52.98 2.56 0 3.65-2.24 4.46-4.37 4.7.34.3.65.88.65 1.78v2.64c0 .26.17.57.66.46A9.5 9.5 0 0 0 12 2.7Z" />
+              <path d="M12 2.7a9.5 9.5 0 0 0-3 18.52c.48.1.65-.2.65-.46v-1.83c-2.65.58-3.2-1.12-3.2-1.12-.43-1.1-1.06-1.4-1.06-1.4-.87-.6.07-.59.07-.59.96.07 1.46.99 1.46.99.85 1.46 2.24 1.04 2.79.08-.62.33-1.04.6-1.28-2.12-.24-4.35-1.06-4.35-4.7 0-1.04.37-1.89.98-2.56-.1-.24-.43-1.21.09-2.52 0 0 .8-.26 2.61.98A9.1 9.1 0 0 1 12 7.22a9 9 0 0 1 2.38.32c1.81-1.23 2.61-.98 2.61-.98.52 1.31.19 2.28.09 2.52.61.67.98 1.52.98 2.56 0 3.65-2.24 4.46-4.37 4.7.34.3.65.88.65 1.78v2.64c0 .26.17.57.66.46A9.5 9.5 0 0 0 12 2.7Z" />
             </g>
             <text class="title" x="51" y="35">GitHub 活动</text>
             <text class="year" x="696" y="34" text-anchor="end">@{login} · {now.year}</text>
@@ -330,13 +260,13 @@ jobs:
         working-directory: repo
         run: |
           set -euo pipefail
-          if git diff --quiet -- README.md .github/github-stats.svg; then
+          if git diff --quiet -- .github/github-stats.svg; then
             echo "Profile data is already current."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md .github/github-stats.svg
+          git add .github/github-stats.svg
           git commit -m "chore: refresh profile data"
           git push
